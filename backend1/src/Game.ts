@@ -37,11 +37,11 @@ export class Game{
         to:string
     }){
 // validate type of move using zod
-        if(this.board.moves.length %2 === 0 && socket !=this.player1){
+        if(this.board.turn() === "w" && socket !=this.player1){
             return
         }
 
-        if(this.board.moves.length %2 === 1 && socket !=this.player2){
+        if(this.board.turn() === "b" && socket !=this.player2){
             return
         }
 
@@ -51,11 +51,8 @@ export class Game{
             return;
         }
 
-        
-
-
         if(this.board.isGameOver()){
-            this.player1.emit(JSON.stringify({
+            this.player1.send(JSON.stringify({
                 type:GAME_OVER,
                 payload:{
                     winner:this.board.turn() === "w" ? "black":"white"
@@ -63,13 +60,13 @@ export class Game{
             }))
         }
 
-        if(this.board.moves.length % 2 === 0){
-            this.player2.emit(JSON.stringify({
+        if(this.board.moves().length % 2 === 0){
+            this.player2.send(JSON.stringify({
                 type:MOVE,
                 payload:move
             }))
         }else{
-            this.player1.emit(JSON.stringify({
+            this.player1.send(JSON.stringify({
                 type:MOVE,
                 payload:move
             }))
