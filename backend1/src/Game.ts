@@ -38,16 +38,21 @@ export class Game{
     }){
 // validate type of move using zod
         if(this.board.turn() === "w" && socket !=this.player1){
+            console.log("wrong turn")
             return
         }
 
         if(this.board.turn() === "b" && socket !=this.player2){
+            console.log("wrong turn")
+
             return
         }
 
+        console.log(move);
         try{
             this.board.move(move);
         }catch(e){
+            console.log(e)
             return;
         }
 

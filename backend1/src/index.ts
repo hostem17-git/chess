@@ -13,6 +13,5 @@ wss.on('connection', function connection(ws: WebSocket) {
     ws.on('close', () => {
         gameManager.removeUser(ws);
     });
-
-    ws.on
+    
 });
